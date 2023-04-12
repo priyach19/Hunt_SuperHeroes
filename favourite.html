@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+    <title>Favourite SuperHeroes  </title>
+    <head>
+        <title>SuperHeroes Hunter App</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css">    
+        <script src="./js/jquery-3.6.4.min.js"></script>
+        <link href="sticky-footer.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="./css/custom.css">
+    </head>
+
+
+<body class="super_hero_page">
+    <!-- navbar section -->
+    <nav class="flex-row navbar">
+        <!-- Site Icon and Name -->
+        <div class="flex-row navbar-brand">
+             <img class="logo" src="./static/iconhero.png" alt="">
+             <a href="./home.html">
+                  <span style="color:white; font-size: 30px;" >Hunt Your Superheroes</span>
+             </a>
+        </div>
+        <!-- Favourites Button -->
+        <div class="flex-row favourite-btn">
+             <a class="flex-row link-to-different-page" href="./favourite.html">
+                  <button class="btn fav-btn"> <i class="fa-solid fa-heart fav-icon"></i> &nbsp; Favourites</button>
+             </a>
+        </div>
+      </nav>
+   <div class="favourite-characters">
+    <div class="flex-row cards-container" id="container">
+         <!-- Structure of the data that is added using DOM manipulation -->
+         <!-- <div class="flex-col card">
+              <img src="${character.squareImage}" alt="">
+              <span class="name">${character.name}</span>
+              <span class="id">Id : ${character.id}</span>
+              <span class="comics">Comics : ${character.comics}</span>
+              <span class="series">Series : ${character.series}</span>
+              <span class="stories">Stories : ${character.stories}</span>
+              <a class="character-info" href="./more-info.html">
+                   <button class="btn"><i class="fa-solid fa-circle-info"></i> &nbsp; More Info</button>
+              </a>
+              <div style="display:none;">
+                   <span>${character.id}</span>
+                   <span>${character.name}</span>
+                   <span>${character.comics}</span>
+                   <span>${character.series}</span>
+                   <span>${character.stories}</span>
+                   <span>${character.description}</span>
+                   <span>${character.landscapeImage}</span>
+                   <span>${character.portraitImage}</span>
+                   <span>${character.squareImage}</span>
+              </div>
+              <button class="btn remove-btn"><i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites</button>
+         </div> -->
+    </div>
+</div>
+
+<span data-visiblity="hide" class="remove-toast">Removed from Favourites</span>
+<script src="./js/favourite.js"></script>
+</body>
+</html>
