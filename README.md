@@ -1,5 +1,6 @@
 # Hunt_SuperHeroes
 This App is basically to fetch data from the marvel Api. Following features are added in this project:-
+
 **Home Page**
 
 1. Fetch and display a list of SuperHeros (Characters) on the home page. Also create a search bar that will filter out the character based on search query. Suppose I type “bat” in the search box, it should show “batman”. 
