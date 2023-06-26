@@ -16,7 +16,7 @@ window.addEventListener("load", function () {
           favourites = JSON.parse(this.localStorage.getItem("favouriteCharacters"));
      }
 
-     // if all the characters are deleted from favourites and not character left for displaying
+     // if all the characters are deleted from favourites and not character left
      if (favourites.length == 0) {
           cardContainer.innerHTML = "<p class=\"no-characters\">No characters present in Favourites</p>";
           return;
@@ -43,7 +43,6 @@ window.addEventListener("load", function () {
           `
 
      })
-     // Adding the appropritate events to the buttons after they are inserted in dom 
      addEvent();
 })
 
@@ -59,15 +58,11 @@ function addEvent() {
 
 function removeCharacterFromFavourites() {
      
-     // Storing the Id of character in a voriable
+     // Storing the Id of character 
      let idOfCharacterToBeDeleted = this.parentElement.children[2].innerHTML.substring(5);
-
-     // getting the favourites array which stores objects of character  
-     let favourites = JSON.parse(localStorage.getItem("favouriteCharacters"));
-     // favouritesCharacterIDs is taken from localStorage for deleting the ID of the character which is deleted from favourites
-     let favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs")));
-     // deleting the characters id from favouritesCharacterId map
-     favouritesCharacterIDs.delete(`${idOfCharacterToBeDeleted}`);
+     let favourites = JSON.parse(localStorage.getItem("favouriteCharacters")); // get favourites array stores objects of character  
+     let favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs")));// get favouritesCharacterIDs to delete the character which is deleted from favourites
+     favouritesCharacterIDs.delete(`${idOfCharacterToBeDeleted}`);// delete id from favouritesCharacterId map
 
 
      // deleting the character form array whose id is matched 
@@ -78,7 +73,7 @@ function removeCharacterFromFavourites() {
           }
      });
 
-     // if all the characters are deleted from favourites and not character left for displaying
+     // when all characters are deleted from favourites and no character left 
      if (favourites.length == 0) {
           cardContainer.innerHTML = "<p class=\"no-characters\">No characters present in Favourites</p>";
      }
@@ -90,20 +85,16 @@ function removeCharacterFromFavourites() {
 
      // Removing the element from DOM
      this.parentElement.remove();
-
-     // displaying the "Removed from favourites" toast in DOM
-     document.querySelector(".remove-toast").setAttribute("data-visiblity", "show");
-     // Removing the "Removed from favourites" toast form DOM
+     document.querySelector(".remove-toast").setAttribute("data-visiblity", "show");// show "Removed from favourites" toast in DOM
      setTimeout(function () {
-          document.querySelector(".remove-toast").setAttribute("data-visiblity", "hide");
+          document.querySelector(".remove-toast").setAttribute("data-visiblity", "hide"); // hide "Removed from favourites" toast from DOM
      }, 1000);
 }
 
 
 // Function which stores the info object of character for which user want to see the info 
 function addInfoLocally() {
-     // This function basically stores the data of character in localStorage.
-     // When user clicks on the info button and when the info page is opened that page fetches the heroInfo and display the data  
+       
      let heroInfo = {
           name: this.parentElement.children[7].children[1].innerHTML,
           description: this.parentElement.children[7].children[5].innerHTML,
