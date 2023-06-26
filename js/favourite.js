@@ -29,7 +29,7 @@ window.addEventListener("load", function () {
           cardContainer.innerHTML +=
                `
                <div class="flex-col card">
-                    <img src="${character.squareImage}" alt="">
+                    <img src="${character.portraitImage}" height="220px" alt="">
                     <span class="name">${character.name}</span>
                     <span class="id">Id : ${character.id}</span>
                     <span class="comics">Comics : ${character.comics}</span>
@@ -38,17 +38,6 @@ window.addEventListener("load", function () {
                     <a class="character-info" href="./super_hero.html">
                          <button class="btn"><i class="fa-solid fa-circle-info"></i> &nbsp; More Info</button>
                     </a>
-                    <div style="display:none;">
-                         <span>${character.id}</span>
-                         <span>${character.name}</span>
-                         <span>${character.comics}</span>
-                         <span>${character.series}</span>
-                         <span>${character.stories}</span>
-                         <span>${character.description}</span>
-                         <span>${character.landscapeImage}</span>
-                         <span>${character.portraitImage}</span>
-                         <span>${character.squareImage}</span>
-                    </div>
                     <button class="btn remove-btn"><i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites</button>
                </div>
           `
@@ -64,7 +53,7 @@ function addEvent() {
      removeBtn.forEach((btn) => btn.addEventListener("click", removeCharacterFromFavourites))
 
      let characterInfo = document.querySelectorAll(".character-info");
-     characterInfo.forEach((character) => character.addEventListener("click", addInfoInLocalStorage));
+     characterInfo.forEach((character) => character.addEventListener("click",addInfoLocally));
 }
 
 
@@ -112,7 +101,7 @@ function removeCharacterFromFavourites() {
 
 
 // Function which stores the info object of character for which user want to see the info 
-function addInfoInLocalStorage() {
+function addInfoLocally() {
      // This function basically stores the data of character in localStorage.
      // When user clicks on the info button and when the info page is opened that page fetches the heroInfo and display the data  
      let heroInfo = {

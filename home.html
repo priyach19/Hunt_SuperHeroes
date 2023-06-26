@@ -10,9 +10,9 @@
       </head>
      
     <body class="flex-col">
-      <!-- div for main container -->
+      <!-- main container -->
       <div class="container">
-      <!-- navbar section -->
+      <!-- navbar section same for all pages-->
       <nav class="flex-row navbar">
         <!-- Site Icon and Name -->
         <div class="flex-row navbar-brand">
@@ -41,37 +41,12 @@
                    <input id="search-bar" type="text" autocomplete="off" placeholder="Search for Superheros here...">
                   <div class="search-icon-container" style=""><i class="fa-solid fa-magnifying-glass"></i></div>
               </div>
-              <ul class="flex-col" id="search-results">
-                 <!-- Structure of the data that is added using DOM manipulation -->
-               <!-- <li class="flex-row single-search-result">
-                    <div class="flex-row img-info">
-                         <img src="${hero.thumbnail.path+'/portrait_medium.' + hero.thumbnail.extension}" alt="">
-                         <div class="hero-info">
-                              <a class="character-info" href="./more-info.html">
-                                   <span class="hero-name">${hero.name}</span>
-                              </a>
-                         </div>
-                    </div>
-                    <div class="flex-col buttons">
-                         <button class="btn add-to-fav-btn">${favouritesCharacterIDs.has(`${hero.id}`) ? "<i class=\"fa-solid fa-heart-circle-minus\"></i> &nbsp; Remove from Favourites" :"<i class=\"fa-solid fa-heart fav-icon\"></i> &nbsp; Add to Favourites</button>"}
-                    </div>
-                    <div style="display:none;">
-                         <span>${hero.name}</span>
-                         <span>${hero.description}</span>
-                         <span>${hero.comics.available}</span>
-                         <span>${hero.series.available}</span>
-                         <span>${hero.stories.available}</span>
-                         <span>${hero.thumbnail.path+'/portrait_uncanny.' + hero.thumbnail.extension}</span>
-                         <span>${hero.id}</span>
-                         <span>${hero.thumbnail.path+'/landscape_incredible.' + hero.thumbnail.extension}</span>
-                         <span>${hero.thumbnail.path+'/standard_fantastic.' + hero.thumbnail.extension}</span>
-                    </div>
-               </li> -->
-           </ul>
+              <ul class="flex-col" id="search-results"></ul>
            </div>
           </div>  
-          <div id="marvel-container"></div>
-                    
+          <div id="display-container" class="d-flex flex-column align-items-center  justify-content-center shadow">
+          <div id="marvel-container" class="row d-flex flex-column justify-content-center flex-md-row justify-content-around"></div>
+           </div>         
   
           <!-- Toasts for notifying user that character is added or removed from favourites -->
           <span data-visiblity="hide" class="fav-toast">Added to Favourites</span>

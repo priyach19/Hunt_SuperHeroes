@@ -1,53 +1,110 @@
 //------------To fetch all the characters from marvel Api and show on homepage------------
-var marvel={
-     render:function(){
-         var url="http://gateway.marvel.com/v1/public/characters?ts=1&apikey=ec1a9b92b8914c79a463d25a9a4289dc&hash=2f5b3ab8ca67ce9689d0f1180ae05b3f";
-         var footer=document.getElementById("footer");
-         var message=document.getElementById("message");
-         var marvelContainer=document.getElementById("marvel-container");
-         $.ajax({
-             url:url,
-             type:"GET",
-             beforeSend:function(){
-                 message.innerHTML="Loading...";
-             },
-             complete:function(){
-                 message.innerHTML="Successfully Done!";
-             },
- 
-             success:function(data){
-                 footer.innerHTML=data.attributionText;
-                 var string="";
-                 string+="<div class='row'>";
-                 for(i=0;i<data.data.results.length;i++){
-                     var item=data.data.results[i];
-                     //console.log(item);
-                     string+="<div class='col-md-3'>";
-                     //string+=" <a href='"+item.urls[0].url+"'target='_blank'>";
-                     string+=" <img src='"+item.thumbnail.path+"/portrait_fantastic."+item.thumbnail.extension+"'/>";
-                     string+=" </a>";
-                     string+=" <h3>"+item.name+"</h3>";
-                     string+=" </div>";
-                     if((i+1%4==0)){
-                         string+="</div>";
-                         string+="<div class='row'>";
-                     }
-                 }
-                 marvelContainer.innerHTML=string;
-             },
-             error:function(){
-                 message.innerHTML="we are sorry"
-             }
-         })
-     
+var marvelContainer = document.getElementById("marvel-container");
+var footer = document.getElementById("footer");
+var superheroArray=[]
+async function fetchSuperheroes() {
+     // Get request
+     try {
+       const response = await fetch(
+         "http://gateway.marvel.com/v1/public/characters?ts=1&apikey=ec1a9b92b8914c79a463d25a9a4289dc&hash=2f5b3ab8ca67ce9689d0f1180ae05b3f"
+       );
+   
+       const data = await response.json();
+       superheroArray = await data.data.results;
+       //console.log("inside fetch")
+       showHeroes(superheroArray);
+       footer.innerHTML = data.attributionText;
+     } catch (err) {
+       console.log("Error:", err);
+       return;
      }
+   }
+   
+   //function to iterate over superheroes and adding to the DOM
+   function showHeroes(superhero) {
+     marvelContainer.innerHTML = ``;
+     for (let i = 0; i < superhero.length; i++) {
+       addElementToDom(superhero[i]);
+     }
+     return;
+   }
+   
+   //function to add card for each superhero to the UI
+   function addElementToDom(hero) {
+     const div = document.createElement("div");
+     div.id = "super-hero";
+     div.className =
+       "col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 d-flex justify-content-center";
+     div.innerHTML = `
+        <div id="card-div" class="card mb-3" style="min-width:200px;width:220px">
+        <img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" class="card-img"
+        alt="${hero.name}picture"
+        id="${hero.id}">
+        <div class="card-body">
+        <h5 class="cart-title">${hero.name}</h5>
+     
+        </div>
+        </div> 
+        
+        `;
+     // append all div as a child  into superheroesContainer
+     marvelContainer.appendChild(div);
+   }
+   
+   
+   fetchSuperheroes();
+   
+
+
+// var marvel={
+//      render:function(){
+//          var url="http://gateway.marvel.com/v1/public/characters?ts=1&apikey=ec1a9b92b8914c79a463d25a9a4289dc&hash=2f5b3ab8ca67ce9689d0f1180ae05b3f";
+//          var footer=document.getElementById("footer");
+//          var message=document.getElementById("message");
+//          var marvelContainer=document.getElementById("marvel-container");
+//          $.ajax({
+//              url:url,
+//              type:"GET",
+//              beforeSend:function(){
+//                  message.innerHTML="Loading...";
+//              },
+//              complete:function(){
+//                  message.innerHTML="Successfully Done!";
+//              },
  
- };
+//              success:function(data){
+//                  footer.innerHTML=data.attributionText;
+//                  var string="";
+//                  string+="<div class='row'>";
+//                  for(i=0;i<data.data.results.length;i++){
+//                      var item=data.data.results[i];
+//                      //console.log(item);
+//                      string+="<div class='col-md-3'>";
+//                      //string+=" <a href='"+item.urls[0].url+"'target='_blank'>";
+//                      string+=" <img src='"+item.thumbnail.path+"/portrait_fantastic."+item.thumbnail.extension+"'/>";
+//                      string+=" </a>";
+//                      string+=" <h3>"+item.name+"</h3>";
+//                      string+=" </div>";
+//                      if((i+1%4==0)){
+//                          string+="</div>";
+//                          string+="<div class='row'>";
+//                      }
+//                  }
+//                  marvelContainer.innerHTML=string;
+//              },
+//              error:function(){
+//                  message.innerHTML="we are sorry"
+//              }
+//          })
+     
+//      }
  
- marvel.render();
+//  };
+ 
+//  marvel.render();
 
  
-//--------- show sugeestions while typing in the inputfield--------
+//--------- to show options while searching in the inputfield-------------------------------
 
 let searchBar = document.getElementById("search-bar");
 let searchResults = document.getElementById("search-results");
@@ -55,7 +112,7 @@ let searchResults = document.getElementById("search-results");
 // Add eventListener to search bar
 searchBar.addEventListener("input", () => searchHeros(searchBar.value));
 
-// function for API call
+// function for API call to search for typed superhero
 async function searchHeros(textSearched) {
 
      if (textSearched.length == 0) {
@@ -68,30 +125,27 @@ async function searchHeros(textSearched) {
           .then(res => res.json()) //Converting the data into JSON format
           .then(data => showSearchedResults(data.data.results)) //sending the searched results characters to show in HTML
 }
+ 
 
+//function that shows search result with photo and links
 function showSearchedResults(searchedHero) {
-    //IDs of characters used to know whether present in favourite arraylist & then showing Add/Remove button accordingly
-
+    //character Ids used to check whether present in favourite array or not
     let favouritesCharacterIDs = localStorage.getItem("favouritesCharacterIDs");
+    // If not got the favouritesCharacterIDs then we initialize it with empty map
     if(favouritesCharacterIDs == null){
-         // If not got the favouritesCharacterIDs then we iniitalize it with empty map
          favouritesCharacterIDs = new Map();
     }
+
+    // If got the favouritesCharacterIDs in localStorage then parse it and converting it to map
     else if(favouritesCharacterIDs != null){
-         // If the we got the favouritesCharacterIDs in localStorage then parsing it and converting it to map
          favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs")));
     }
 
     searchResults.innerHTML = ``;
-    // count is used to count the result displayed in DOM
+    // count is used to display top 5 result from DOM
     let count = 1;
-
-    // iterating the searchedHero array using for loop
     for (const key in searchedHero) {
-         // if count <= 5 then only we display it in dom other results are discarded
          if (count <= 5) {
-              // getting the single hero 
-              // hero is the object that we get from API
               let hero = searchedHero[key];
               // Appending the element into DOM
               searchResults.innerHTML +=
@@ -117,8 +171,8 @@ function showSearchedResults(searchedHero) {
                         <span>${hero.stories.available}</span>
                         <span>${hero.thumbnail.path+'/portrait_uncanny.' + hero.thumbnail.extension}</span>
                         <span>${hero.id}</span>
+                        <span>${hero.squareImage}</span>
                         <span>${hero.thumbnail.path+'/landscape_incredible.' + hero.thumbnail.extension}</span>
-                        <span>${hero.thumbnail.path+'/standard_fantastic.' + hero.thumbnail.extension}</span>
                    </div>
               </li>
               `
@@ -129,20 +183,18 @@ function showSearchedResults(searchedHero) {
     events();
 }
 
-
-// Function for attacthing eventListener to buttons
 function events() {
     let favouriteButton = document.querySelectorAll(".add-to-fav-btn");
     favouriteButton.forEach((btn) => btn.addEventListener("click", addToFavourites));
 
     let characterInfo = document.querySelectorAll(".character-info");
-    characterInfo.forEach((character) => character.addEventListener("click", addInfoInLocalStorage))
+    characterInfo.forEach((character) => character.addEventListener("click", addInfoLocally))
 }
 
-//function to add or remove in favourite list
+//function to add or remove in the favourite Array
 function addToFavourites() {
 
-    // If add to favourites button is cliked then
+    // If 'Add to favourites' button is cliked then
     if (this.innerHTML == '<i class="fa-solid fa-heart fav-icon"></i> &nbsp; Add to Favourites') {
 
          // We cretate a new object containg revelent info of hero and push it into favouritesArray
@@ -155,53 +207,46 @@ function addToFavourites() {
               portraitImage: this.parentElement.parentElement.children[2].children[5].innerHTML,
               id: this.parentElement.parentElement.children[2].children[6].innerHTML,
               landscapeImage: this.parentElement.parentElement.children[2].children[7].innerHTML,
-              squareImage: this.parentElement.parentElement.children[2].children[8].innerHTML
+             
          }
 
-         // get the array which stores objects of character 
-        
+         // array which stores objects of character 
          let favouritesArray = localStorage.getItem("favouriteCharacters");
-         //null if visit first time 
          
          if (favouritesArray == null) {
-              // create a new array
+              // null if visited first, then create a new array
               favouritesArray = [];
          } else {
-              //  parse so that it becomes an array 
               favouritesArray = JSON.parse(localStorage.getItem("favouriteCharacters"));
          }
 
-         // IDs taken from local storage and search  characters which already added in favourites,if the id of the character exist in array then display "Remove form favourites" instead of "Add to favourites"
+         //check IDs whether present or not then accordingly showing add or remove buttons
          let favouritesCharacterIDs = localStorage.getItem("favouritesCharacterIDs");
 
-         
          if (favouritesCharacterIDs == null) {
-         // If we did't got the favouritesCharacterIDs then we iniitalize it with empty map
               favouritesCharacterIDs = new Map();
          } else {
-              // getting the map as object from localStorage and pasrsing it and then converting into map 
-              favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs")));
-              // favouritesCharacterIDs = new Map(Object.entries(favouritesCharacterIDs));
+              //getting it from localstorage and parsing it
+              favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs"))); 
          }
 
          // again setting the new favouritesCharacterIDs array to localStorage
          favouritesCharacterIDs.set(heroInfo.id, true);
-          console.log(favouritesCharacterIDs)
+         // console.log(favouritesCharacterIDs)
 
          // adding the above created heroInfo object to favouritesArray
          favouritesArray.push(heroInfo);
 
-         // Storing the new favouritesCharactersID map to localStorage after converting to string
+         // Storing the new favouritesCharactersID map and favouriteCharacters Array to localStorage after converting to string
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
-         // Setting the new favouritesCharacters array which now has the new character 
          localStorage.setItem("favouriteCharacters", JSON.stringify(favouritesArray));
 
-         // Convering the "Add to Favourites" button to "Remove from Favourites"
+         // Change "Add to Favourites" button to "Remove from Favourites"
          this.innerHTML = '<i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites';
          
-         // Displaying the "Added to Favourites" toast to DOM
+         // show "Added to Favourites" toast to DOM
          document.querySelector(".fav-toast").setAttribute("data-visiblity","show");
-         // Deleting the "Added to Favourites" toast from DOM after 1 seconds
+         // hide "Added to Favourites" toast from DOM after 1 seconds
          setTimeout(function(){
               document.querySelector(".fav-toast").setAttribute("data-visiblity","hide");
          },1000);
@@ -209,27 +254,22 @@ function addToFavourites() {
     // For removing the character form favourites array
     else{
          
-         // storing the id of character in a variable 
+         // storing the id of character  
          let idOfCharacterToBeRemoveFromFavourites = this.parentElement.parentElement.children[2].children[6].innerHTML;
-         
-         // getting the favourites array from localStorage for removing the character object which is to be removed
+          
          let favouritesArray = JSON.parse(localStorage.getItem("favouriteCharacters"));
          
-         // getting the favaourites character ids array for deleting the character id from favouritesCharacterIDs also
          let favouritesCharacterIDs = new Map(JSON.parse(localStorage.getItem("favouritesCharacterIDs")));
          
-         // will contain the characters which should be present after the deletion of the character to be removed 
+         // will contain the characters after the deletion
          let newFavouritesArray = [];
-         // let newFavouritesCharacterIDs = [];
          
-         // deleting the character from map using delete function where id of character acts as key
+         //  deleting character using delete function where id of character acts as key in map
          favouritesCharacterIDs.delete(`${idOfCharacterToBeRemoveFromFavourites}`);
          
          // creating the new array which does not include the deleted character
-         // iterating each element of array
          favouritesArray.forEach((favourite) => {
-              // if the id of the character doesn't matches the favourite (i.e a favourite character) then we append it in newFavourites array 
-              if(idOfCharacterToBeRemoveFromFavourites != favourite.id){
+               if(idOfCharacterToBeRemoveFromFavourites != favourite.id){
                    newFavouritesArray.push(favourite);
               }
          });
@@ -241,7 +281,7 @@ function addToFavourites() {
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
          
          
-         // Convering the "Remove from Favourites" button to "Add to Favourites" 
+         // Converting the "Remove from Favourites" button to "Add to Favourites" 
          this.innerHTML = '<i class="fa-solid fa-heart fav-icon"></i> &nbsp; Add to Favourites';
          
          // Displaying the "Remove from Favourites" toast to DOM
@@ -256,11 +296,11 @@ function addToFavourites() {
 
 
 
-// Function which stores the info object of character for which user want to see the info 
-function addInfoInLocalStorage() {
+// Function stores the info object of character  
+function addInfoLocally() {
 
-    // This function basically stores the data of character in localStorage.
-    // When user clicks on the info button and when the info page is opened that page fetches the heroInfo and display the data  
+    
+    // stores in localStorage, When clicked more info button, info page is opened fetches the heroInfo and display the info  
     let heroInfo = {
          name: this.parentElement.parentElement.parentElement.children[2].children[0].innerHTML,
          description: this.parentElement.parentElement.parentElement.children[2].children[1].innerHTML,

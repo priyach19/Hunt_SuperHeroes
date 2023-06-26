@@ -1,13 +1,22 @@
   
-html{
-  position: relative;
-  min-height:100%;
+*{
+  margin:0;
+  padding:0;
 }
 body{
-  background-image: url('../static/bbb.jpg');
-   background-size: cover;
+  /* background-image: url('../static/g1.jpg'); */
+  background-image: linear-gradient(to bottom right,red,black);
+  background-size:cover;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
 }
-/* ----footer css---- */
+#display-container{
+  background-color:transparent;
+} 
+ /* ----footer css---- */
 .footer {
   position: sticky;
   bottom: 0;
@@ -15,7 +24,31 @@ body{
   height: 60px;
   line-height: 60px;
   background-color:rgb(15, 9, 9);
+  text-align: center;
 }
+
+/* card css*/
+.hero {
+  color: rgb(211, 77, 77);
+}
+
+.card {
+  cursor: pointer;
+  background-color:black;
+  box-shadow: 0px 2px 5px 0px #f0f0f0;
+  transform: translateY(10px);
+  transition: 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.1) translateX(2px);
+  box-shadow: 0px 5px 10px 2px rgb(211, 77, 77);
+}
+/* .card-link {
+  text-decoration: none;
+  color:rgb(161, 33, 33);
+} */
+
 
 #marvel-container{
   display: flex;
@@ -26,7 +59,7 @@ body{
   width:100%;
   height:100%;
   margin:20px 20px 0px 10px;
-  /* background-color: chocolate; */
+  
 }
 
 
@@ -139,7 +172,7 @@ body{
 }
 
 #search-bar {
-  background-color: rgb(102, 95, 95);
+  background-color: rgb(197, 67, 67);
   color: #fff;
   font-weight: bolder;
   min-width: 550px;
@@ -193,7 +226,7 @@ input::placeholder {
 }
 
 #search-results li:hover .hero-name {
-  color: red;
+  color:black;
 }
 
 .single-search-result {

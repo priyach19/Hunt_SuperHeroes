@@ -40,8 +40,8 @@ window.addEventListener("load", function () {
                         </div>
                    </div>
               </div>
-              <div class="flex-col hero-discription">
-                   <b>Discription:</b>
+              <div class="flex-col hero-description">
+                   <b>Description:</b>
                    <p>${heroInfo.description != "" ? heroInfo.description : "No Description Available"}</p>
               </div>
               <div style="display:none;">
