@@ -29,7 +29,7 @@ window.addEventListener("load", function () {
           cardContainer.innerHTML +=
                `
                <div class="flex-col card">
-                    <img src="${character.portraitImage}" height="220px" alt="">
+                    <img src="${character.portraitImage}" height="240px" alt="">
                     <span class="name">${character.name}</span>
                     <span class="id">Id : ${character.id}</span>
                     <span class="comics">Comics : ${character.comics}</span>
@@ -38,7 +38,18 @@ window.addEventListener("load", function () {
                     <a class="character-info" href="./super_hero.html">
                          <button class="btn"><i class="fa-solid fa-circle-info"></i> &nbsp; More Info</button>
                     </a>
-                    <button class="btn remove-btn"><i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites</button>
+                    <div style="display:none;">
+                         <span>${character.id}</span>
+                         <span>${character.name}</span>
+                         <span>${character.comics}</span>
+                         <span>${character.series}</span>
+                         <span>${character.stories}</span>
+                         <span>${character.description}</span>
+                         <span>${character.landscapeImage}</span>
+                         <span>${character.portraitImage}</span>
+                         <span>${character.squareImage}</span>
+                    </div>
+                    <button class="btn remove-btn"><i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites</button> 
                </div>
           `
 
@@ -82,6 +93,7 @@ function removeCharacterFromFavourites() {
      // Updating the new arrays in localStorage
      localStorage.setItem("favouriteCharacters", JSON.stringify(favourites));
      localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
+     //localStorage.setItem("heroInfo",JSON.stringify(heroInfo));
 
      // Removing the element from DOM
      this.parentElement.remove();

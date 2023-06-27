@@ -125,8 +125,9 @@ function showSearchedResults(searchedHero) {
                         <span>${hero.stories.available}</span>
                         <span>${hero.thumbnail.path+'/portrait_uncanny.' + hero.thumbnail.extension}</span>
                         <span>${hero.id}</span>
-                        <span>${hero.squareImage}</span>
                         <span>${hero.thumbnail.path+'/landscape_incredible.' + hero.thumbnail.extension}</span>
+                        <span>${hero.thumbnail.path+'/standard_fantastic.' + hero.thumbnail.extension}</span>
+                      
                    </div>
               </li>
               `
@@ -161,7 +162,7 @@ function addToFavourites() {
               portraitImage: this.parentElement.parentElement.children[2].children[5].innerHTML,
               id: this.parentElement.parentElement.children[2].children[6].innerHTML,
               landscapeImage: this.parentElement.parentElement.children[2].children[7].innerHTML,
-             
+              squareImage: this.parentElement.parentElement.children[2].children[8].innerHTML
          }
 
          // array which stores objects of character 
@@ -194,6 +195,7 @@ function addToFavourites() {
          // Storing the new favouritesCharactersID map and favouriteCharacters Array to localStorage after converting to string
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
          localStorage.setItem("favouriteCharacters", JSON.stringify(favouritesArray));
+         //localStorage.setItem("heroInfo",JSON.stringify(heroInfo));
 
          // Change "Add to Favourites" button to "Remove from Favourites"
          this.innerHTML = '<i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites';
@@ -233,6 +235,7 @@ function addToFavourites() {
          // Updating the new array in localStorage
          localStorage.setItem("favouriteCharacters",JSON.stringify(newFavouritesArray));
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
+         //localStorage.setItem("heroInfo",JSON.stringify(heroInfo));
          
          
          // Converting the "Remove from Favourites" button to "Add to Favourites" 
@@ -263,7 +266,7 @@ function addInfoLocally() {
          stories: this.parentElement.parentElement.parentElement.children[2].children[4].innerHTML,
          portraitImage: this.parentElement.parentElement.parentElement.children[2].children[5].innerHTML,
          id: this.parentElement.parentElement.parentElement.children[2].children[6].innerHTML,
-         landscapeImage: this.parentElement.parentElement.parentElement.children[2].children[7].innerHTML,
+        // landscapeImage: this.parentElement.parentElement.parentElement.children[2].children[7].innerHTML,
          squareImage: this.parentElement.parentElement.parentElement.children[2].children[8].innerHTML
     }
 
@@ -271,9 +274,4 @@ function addInfoLocally() {
 }
 
 
-
-function initialiseApp(){
-     fetchSuperheroes();
-}
-
-initialiseApp();
+fetchSuperheroes();

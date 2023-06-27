@@ -41,7 +41,6 @@ window.addEventListener("load", function () {
               <div style="display:none;">
                    <span>${heroInfo.name}</span>
                    <span>${heroInfo.portraitImage}</span>
-                   <span>${heroInfo.landscapeImage}</span>
                    <span>${heroInfo.id}</span>
                    <span>${heroInfo.comics}</span>
                    <span>${heroInfo.series}</span>
@@ -116,7 +115,7 @@ function addToFavourites() {
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));//parse it to convert into string
          
          localStorage.setItem("favouriteCharacters", JSON.stringify(favouritesArray));// Setting the new favouritesCharacters array 
-
+         //localStorage.setItem("heroInfo",JSON.stringify(heroInfo));
          // change buttons from add to remove
          this.innerHTML = '<i class="fa-solid fa-heart-circle-minus"></i> &nbsp; Remove from Favourites';
          
@@ -156,6 +155,7 @@ function addToFavourites() {
          // Updating the new array in localStorage
          localStorage.setItem("favouriteCharacters",JSON.stringify(newFavouritesArray));
          localStorage.setItem("favouritesCharacterIDs", JSON.stringify([...favouritesCharacterIDs]));
+         //localStorage.setItem("heroInfo",JSON.stringify(heroInfo));
          
          this.innerHTML = '<i class="fa-solid fa-heart fav-icon"></i> &nbsp; Add to Favourites';//change toasts
          
