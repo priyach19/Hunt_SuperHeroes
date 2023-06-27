@@ -8,7 +8,7 @@ window.addEventListener("load", async function (){
      // Get request
      try {
        const response = await fetch(
-         "https://gateway.marvel.com/v1/public/characters?ts=1&apikey=ec1a9b92b8914c79a463d25a9a4289dc&hash=2f5b3ab8ca67ce9689d0f1180ae05b3f"
+         `https://gateway.marvel.com/v1/public/characters?ts=1&apikey=ec1a9b92b8914c79a463d25a9a4289dc&hash=2f5b3ab8ca67ce9689d0f1180ae05b3f`
        );
    
        const data = await response.json();
