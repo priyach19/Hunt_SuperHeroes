@@ -1,14 +1,8 @@
-public key:  ec1a9b92b8914c79a463d25a9a4289dc
 
-
-private key:   3fc94316bfe671dab1f3fbf45306bff02b3186e3
 
 API key :
 developer.marvel.com
-//to create md5 digest:
 13fc94316bfe671dab1f3fbf45306bff02b3186e3ec1a9b92b8914c79a463d25a9a4289dc
 
 
 
-hash
-2f5b3ab8ca67ce9689d0f1180ae05b3f
