@@ -4,7 +4,7 @@ var footer = document.getElementById("footer");
 var superheroArray=[];
 
 //------------To fetch all the characters from marvel Api and show on homepage------------
-async function fetchSuperheroes() {
+window.addEventListener("load", async function (){
      // Get request
      try {
        const response = await fetch(
@@ -20,7 +20,7 @@ async function fetchSuperheroes() {
        console.log("Error:", err);
        return;
      }
-   }
+   })
    
    //function to iterate over superheroes and adding to the DOM
    function showHeroes(superhero) {
@@ -274,4 +274,4 @@ function addInfoLocally() {
 }
 
 
-fetchSuperheroes();
+
