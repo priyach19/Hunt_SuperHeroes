@@ -54,7 +54,7 @@ async function fetchSuperheroes() {
    }
    
    
-   fetchSuperheroes();
+   
    
 
 
@@ -269,3 +269,11 @@ function addInfoLocally() {
 
     localStorage.setItem("heroInfo", JSON.stringify(heroInfo));
 }
+
+
+
+function initialiseApp(){
+     fetchSuperheroes();
+}
+
+initialiseApp();

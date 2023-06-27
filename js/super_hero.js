@@ -18,7 +18,7 @@ window.addEventListener("load", function () {
               <div class="flex-row hero-name">${heroInfo.name}</div>
               <div class="flex-row hero-img-and-more-info">
                    <img id="portraitImage" class="hero-img" src="${heroInfo.portraitImage}" alt="">
-                   <img style="display:none;" id="landscapeImage" src="${heroInfo.landscapeImage}" alt="">
+
                    <div class="flex-col more-info">
                         <div class="flex-row id">
                              <b>ID:</b><span>${heroInfo.id}</span>
